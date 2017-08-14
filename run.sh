@@ -1,17 +1,18 @@
 #!/bin/sh
 
-test ! -d "/var/svn/template" && mkdir -p /var/svn/template/trunk && mkdir /var/svn/template/tags && mkdir /var/svn/template/branches
+[[ -n "$SVN_REPO" ]] &&
+{
+  test ! -d "/svn/$SVN_REPO" && svnadmin create /svn/$SVN_REPO && chgrp -R apache /svn/$SVN_REPO && chmod -R 775 /svn/$SVN_REPO
+}
 
-[[ -n "$SVN_REPO" ]] || SVN_REPO="testrepo"
+test ! -d "/svn/template" && mkdir -p /svn/template/trunk && mkdir /svn/template/tags && mkdir /svn/template/branches
 
-echo "Creating the repository: $SVN_REPO into /var/svn/"
-test ! -d "/var/svn/$SVN_REPO" && svnadmin create /var/svn/$SVN_REPO && chgrp -R apache /var/svn/$SVN_REPO && chmod -R 775 /var/svn/$SVN_REPO
+[[ -n "$SVN_USER"   &&  -n "$SVN_PASS" ]] && htpasswd -bc /etc/apache2/conf.d/davsvn.htpasswd $SVN_USER $SVN_PASS
 
-if [ -n "$DAV_SVN_USER" ] && [ -n "$DAV_SVN_PASS" ]; then
-htpasswd -bc /etc/apache2/conf.d/davsvn.htpasswd $DAV_SVN_USER $DAV_SVN_PASS
-else
-htpasswd -bc /etc/apache2/conf.d/davsvn.htpasswd davsvn davsvn
-echo "Warning: DAV_SVN_USER / DAV_SVN_PASS variables not defined, starting with default account"
-fi
+[[ -z "$SVN_HTML" ]] ||
+{
+  rm -f /var/www/localhost/htdocs/index.html
+  cp /svn/$SVN_HTML/index.html /var/www/localhost/htdocs/index.html
+}
 
 httpd -D FOREGROUND

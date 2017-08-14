@@ -1,19 +1,18 @@
 FROM alpine
-MAINTAINER Pika Do <pokido99@gmail.com>
+MAINTAINER Jay Wheeler <earthwalksoftware@gmail.com>
 
-VOLUME /var/svn
+VOLUME /svn
+ENV SVN_ROOT=/svn
 
-ENV SVN_ROOT=/var/svn
-
-# Install and configure Apache WebDAV and Subversion
 RUN apk --no-cache add apache2 apache2-utils apache2-webdav mod_dav_svn subversion
-ADD vh-davsvn.conf /etc/apache2/conf.d/
 RUN mkdir -p /run/apache2
 
-ADD run.sh /
+COPY vh-davsvn.conf /etc/apache2/conf.d/
+COPY davsvn.htpasswd /etc/apache2/conf.d/
+COPY run.sh /
+
 RUN chmod +x /run.sh
+
 EXPOSE 80
 
-
-# Define default command
 CMD ["/run.sh"]
