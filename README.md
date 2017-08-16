@@ -12,3 +12,8 @@ _____________________
 
 _____________________
 
+Visit the Wiki for details about the scripts, how to customize the docker image, and how to customize the source for personal use.
+_____________________
+
+by Jay Wheeler, EarthWalk Software
+2017-08-16.
