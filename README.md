@@ -1,10 +1,14 @@
-# alpine-svn
-## Description:
+# EarthWalkSoftware/alpine-svn
 
-AlpineLinux-based Apache-Subversion with WebDAV.
+### AlpineLinux + Subversion + Apache 2 + WebDav
 
-## Based pikado/alpine-svn at https://hub.docker.com/r/pikado/alpine-svn/
+Subversion via an Apache2 server running apache2-webdav in a very small AlpineLinux docker-container.
 
-alpine-svn from pikado is very well wriiten - works out of the box.
-This clone of the original source is simply to modify it for my needs.
+_____________________
+
+#### Get the latest docker image from Docker Hub: 
+
+  https://hub.docker.com/r/earthwalksoftware/alpine-svn/.
+
+_____________________
 
