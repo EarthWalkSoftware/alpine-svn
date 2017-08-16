@@ -12,3 +12,11 @@ _____________________
 
 _____________________
 
+For details about the scripts, and how to customize the docker image and source, visit  
+
+https://github.com/EarthWalkSoftware/alpine-svn/wiki  
+
+_____________________
+
+by Jay Wheeler, EarthWalk Software
+2017-08-16.
